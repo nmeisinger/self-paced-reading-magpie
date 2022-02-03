@@ -1,150 +1,125 @@
 <template>
   <Experiment title="magpie demo">
-    <!--    <InstructionScreen :title="'Welcome'">
-      This is a sample introduction screen.
-      <br />
-      <br />
-      This screen welcomes the participant and gives general information about
-      the experiment.
-      <br />
-      <br />
-      This mock up experiment is a showcase of the functionality of magpie.
-    </InstructionScreen>
+    <!-- This example behaves as expected. First "Hello World" is displayed, then "Anybody here?"-->
+    <Screen>
+      <Slide>
+        Hello World
+        <button @click="$magpie.nextSlide()">Next slide</button>
+      </Slide>
 
-    <InstructionScreen :title="'General Instructions'">
-      This is a sample instructions view.
-      <br />
-      <br />
-      First you will go through two practice trials. The practice trial view
-      uses magpie's forced choice trial input.
-    </InstructionScreen>-->
+      <Slide>
+        Anybody here?
+        <button @click="$magpie.nextScreen()">Yes</button>
+      </Slide>
+    </Screen>
 
-    <template>
-      <Screen>
-        <Slide>
-          <SelfPacedReading
-            :chunks="['this', 'is', 'a', 'text']"
-            word-pos="next"
-            underline="sentence"
-            trigger="~"
-            :response-times.sync="$magpie.measurements.times"
-            @end="$magpie.saveAndNextScreen()"
-          />
-          <button @click="$magpie.saveAndNextScreen()">Next slide</button>
-        </Slide>
-      </Screen>
-    </template>
-
-    <template>
-      <Screen>
-        <Slide>
-          <SelfPacedReading
-            :chunks="['this', 'is', 'a', 'text', 'as', 'well']"
-            word-pos="next"
-            underline="sentence"
-            trigger="~"
-            :response-times.sync="$magpie.measurements.times"
-            @end="$magpie.saveAndNextScreen()"
-          />
-          <button @click="$magpie.saveAndNextScreen()">Next slide</button>
-        </Slide>
-      </Screen>
-    </template>
-    <DebugResultsScreen />
-    <!--    &lt;!&ndash; Here we create screens in a loop for every entry in forced_choice &ndash;&gt;
-    <template v-for="(forced_choice_task, i) of forced_choice">
-      <ForcedChoiceScreen
-        :key="'forcedchoice-' + i"
-        :progress="i / forced_choice.length"
-        :question="forced_choice_task.question"
-        :options="[forced_choice_task.option1, forced_choice_task.option2]"
-      >
-        <template #stimulus>
-          <img :src="forced_choice_task.picture" />
-        </template>
-      </ForcedChoiceScreen>
-    </template>
-
-    <template v-for="(dropdown_task, i) in multi_dropdown">
-      <CompletionScreen
-        :key="'multidropdown-' + i"
-        :progress="i / multi_dropdown.length"
-        :text="
-          dropdown_task.sentence_chunk_1 +
-          ' %s ' +
-          dropdown_task.sentence_chunk_2 +
-          ' %s ' +
-          dropdown_task.sentence_chunk_3
-        "
-        :options="[
-          dropdown_task.choice_options_1.split('|'),
-          dropdown_task.choice_options_2.split('|')
-        ]"
-      />
-    </template>
-
-    <template v-for="i in range(0, sentenceChoice.length, 2)">
-      <template v-for="(sentenceChoice_task, j) in sentenceChoice.slice(i, 2)">
-        <ForcedChoiceScreen
-          :key="'sentenceChoice-' + i + '' + j"
-          :question="sentenceChoice_task.question"
-          :options="[sentenceChoice_task.option1, sentenceChoice_task.option2]"
-        >
-          <template #stimulus>
-            <img :src="sentenceChoice_task.picture" />
-          </template>
-        </ForcedChoiceScreen>
-      </template>
-      <template v-for="(imageSelection_task, j) in imageSelection.slice(i, 2)">
-        <ImageSelectionScreen
-          :key="'sentenceChoice-' + i + '' + j"
-          :question="imageSelection_task.question"
-          :options="[
-            {
-              label: imageSelection_task.option1,
-              src: imageSelection_task.picture1
-            },
-            {
-              label: imageSelection_task.option2,
-              src: imageSelection_task.picture2
-            }
-          ]"
+    <!-- This  behaves unexpected. Both slides are displayed at the same time -->
+    <!-- Pressing the spacebar, advances both chunks arrays -->
+    <Screen>
+      <Slide>
+        <SelfPacedReading
+          :chunks="['this', 'is', 'the', 'first', 'slide']"
+          word-pos="next"
+          underline="sentence"
+          :response-times.sync="$magpie.measurements.times"
+          @end="$magpie.nextSlide()"
         />
-      </template>
-    </template>
+      </Slide>
+      <Slide>
+        <SelfPacedReading
+          :chunks="['this', 'is', 'the', 'second']"
+          word-pos="next"
+          underline="sentence"
+          :response-times.sync="$magpie.measurements.times"
+          @end="$magpie.nextScreen()"
+        />
+      </Slide>
+      <!-- Test to see, if question_id can be stored for later -->
+      <Record
+        :data="{
+          question_id: 1
+        }"
+      />
+    </Screen>
 
-    <template v-for="(rating_task, i) in sliderRating">
-      <SliderScreen
-        :key="'sliderRating-' + i"
-        :pause-time="500"
-        :stimulus-time="1500"
-        :question="rating_task.question"
-        :option-left="rating_task.optionLeft"
-        :option-right="rating_task.optionRight"
-      >
-        <template #stimulus>
-          <img :src="rating_task.picture" alt="" />
-        </template>
-      </SliderScreen>
-    </template>
+    <ForcedChoiceScreen
+      :options="['Yes', 'No']"
+      question="Is this a text as well?"
+    />
 
-    &lt;!&ndash;
+    <!-- Similar problem here. The second Screen's SelfPacedReading will start from the end index of the first one-->
+    <Screen>
+      <SelfPacedReading
+        :chunks="['this', 'is', 'screen', '2']"
+        word-pos="next"
+        underline="sentence"
+        :response-times.sync="$magpie.measurements.times"
+        @end="$magpie.saveAndNextScreen()"
+      />
+    </Screen>
 
-      Comment this in, to try out interactive components like the Chat component.
+    <Screen>
+      <SelfPacedReading
+        :chunks="[
+          'it',
+          'will',
+          'start',
+          'from',
+          'the',
+          'fifth',
+          'word',
+          'instead',
+          'of',
+          'the',
+          'beginning'
+        ]"
+        word-pos="next"
+        underline="sentence"
+        :response-times.sync="$magpie.measurements.times"
+        @end="$magpie.saveAndNextScreen()"
+      />
+    </Screen>
 
-      <ConnectInteractiveScreen />
+    <ForcedChoiceScreen
+      :options="['Yes', 'No']"
+      question="Is this a question?"
+    />
 
-      <Screen>
-          <Chat :messages.sync="$magpie.measurements.messages"></Chat>
-          <button @click="$magpie.saveAndNextScreen()">Next</button>
-      </Screen>
+    <!-- With a ForcedChoiceScreen in-between, the SelfPacedReading works as expected -->
+    <Screen>
+      <SelfPacedReading
+        :chunks="['normal', 'behavior', 'after', 'ForcedChoiceScreen']"
+        word-pos="next"
+        underline="sentence"
+        :response-times.sync="$magpie.measurements.times"
+        @end="$magpie.saveAndNextScreen()"
+      />
+    </Screen>
 
-      &ndash;&gt;
+    <ForcedChoiceScreen
+      :options="['Yes', 'No']"
+      question="Is this a question?"
+    />
 
-    <PostTestScreen />-->
+    <Screen>
+      <SelfPacedReading
+        :chunks="[
+          'normal',
+          'behavior',
+          'after',
+          'ForcedChoiceScreen',
+          'here',
+          'as',
+          'well'
+        ]"
+        word-pos="next"
+        underline="sentence"
+        :response-times.sync="$magpie.measurements.times"
+        @end="$magpie.saveAndNextScreen()"
+      />
+    </Screen>
 
-    <!-- While developing your experiment, using the DebugResults screen is fine,
-      once you're going live, you can use the <SubmitResults> screen to automatically send your experimental data to the server. -->
+    <DebugResultsScreen />
   </Experiment>
 </template>
 
@@ -154,11 +129,10 @@ import forced_choice from '../trials/forced_choice.csv';
 import multi_dropdown from '../trials/multi_dropdown.csv';
 import sentenceChoice from '../trials/sentence_choice.csv';
 import _ from 'lodash';
-import SelfPacedReadingScreen from './SelfPacedReadingScreen';
 
 export default {
   name: 'App',
-  components: { SelfPacedReadingScreen },
+  components: {},
   data() {
     return {
       forced_choice,
