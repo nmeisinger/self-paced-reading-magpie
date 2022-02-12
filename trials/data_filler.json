@@ -81,9 +81,9 @@
       "ID": 8,
       "context": "I wear my favorite shirt every week.",
       "context_length": 7,
-      "trigger": "I make sure to wash some of my clothes each week.",
+      "trigger": "I make sure to wash all of my clothes each week.",
       "trigger_length": 11,
-      "continuation": "I always wash my shirts before I wear them again.",
+      "continuation": "I tend to loose my socks on a regular basis though.",
       "question": "Do I wash my favorite shirt every week?",
       "correct": "yes"
    },
@@ -158,9 +158,9 @@
       "ID": 15,
       "context": "Each member of my family uses a Windows PC.",
       "context_length": 9,
-      "trigger": "I prefer to use an Apple Mac for my laptop.",
+      "trigger": "I prefer to use an Apple Mac as my laptop.",
       "trigger_length": 10,
-      "continuation": "Campus computers use Mac almost exclusively.",
+      "continuation": "Most computers on the campus are from Apple.",
       "question": "Is it easier to use Mac on campus? ",
       "correct": "yes"
    },
