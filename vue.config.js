@@ -10,7 +10,7 @@ module.exports = {
             header: true,
             skipEmptyLines: true
           }
-        }
+        },
       ]
     }
   },

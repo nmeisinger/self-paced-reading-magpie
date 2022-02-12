@@ -1,204 +1,102 @@
 <template>
   <Experiment title="magpie demo">
-    <!-- This example behaves as expected. First "Hello World" is displayed, then "Anybody here?"-->
-    <Screen>
-      <Slide>
-        Hello World
-        <button @click="$magpie.nextSlide()">Next slide</button>
-      </Slide>
-
-      <Slide>
-        Anybody here?
-        <button @click="$magpie.nextScreen()">Yes</button>
-      </Slide>
-    </Screen>
-
-    <!-- This  behaves unexpected. Both slides are displayed at the same time -->
-    <!-- Pressing the spacebar, advances both chunks arrays -->
-    <Screen>
-      <Slide>
-        <SelfPacedReading
-          :chunks="['this', 'is', 'the', 'first', 'slide']"
-          word-pos="next"
-          underline="sentence"
-          :response-times.sync="$magpie.measurements.times"
-          @end="$magpie.nextSlide()"
-        />
-      </Slide>
-      <Slide>
-        <SelfPacedReading
-          :chunks="['this', 'is', 'the', 'second']"
-          word-pos="next"
-          underline="sentence"
-          :response-times.sync="$magpie.measurements.times"
-          @end="$magpie.nextScreen()"
-        />
-      </Slide>
-      <!-- Test to see, if question_id can be stored for later -->
-      <Record
-        :data="{
-          question_id: 1
+    <template v-for="item in itemList">
+      <SelfPacedReadingScreen :item="item" />
+      <KeypressScreen
+        :question="item['question']"
+        :keys="{
+          f: 'yes',
+          j: 'no'
         }"
-      />
-    </Screen>
-
-    <ForcedChoiceScreen
-      :options="['Yes', 'No']"
-      question="Is this a text as well?"
-    />
-
-    <!-- Similar problem here. The second Screen's SelfPacedReading will start from the end index of the first one-->
-    <Screen>
-      <SelfPacedReading
-        :chunks="['this', 'is', 'screen', '2']"
-        word-pos="next"
-        underline="sentence"
-        :response-times.sync="$magpie.measurements.times"
-        @end="$magpie.saveAndNextScreen()"
-      />
-    </Screen>
-
-    <Screen>
-      <SelfPacedReading
-        :chunks="[
-          'it',
-          'will',
-          'start',
-          'from',
-          'the',
-          'fifth',
-          'word',
-          'instead',
-          'of',
-          'the',
-          'beginning'
-        ]"
-        word-pos="next"
-        underline="sentence"
-        :response-times.sync="$magpie.measurements.times"
-        @end="$magpie.saveAndNextScreen()"
-      />
-    </Screen>
-
-    <ForcedChoiceScreen
-      :options="['Yes', 'No']"
-      question="Is this a question?"
-    />
-
-    <!-- With a ForcedChoiceScreen in-between, the SelfPacedReading works as expected -->
-    <Screen>
-      <SelfPacedReading
-        :chunks="['normal', 'behavior', 'after', 'ForcedChoiceScreen']"
-        word-pos="next"
-        underline="sentence"
-        :response-times.sync="$magpie.measurements.times"
-        @end="$magpie.saveAndNextScreen()"
-      />
-    </Screen>
-
-    <ForcedChoiceScreen
-      :options="['Yes', 'No']"
-      question="Is this a question?"
-    />
-
-    <Screen>
-      <SelfPacedReading
-        :chunks="[
-          'normal',
-          'behavior',
-          'after',
-          'ForcedChoiceScreen',
-          'here',
-          'as',
-          'well'
-        ]"
-        word-pos="next"
-        underline="sentence"
-        :response-times.sync="$magpie.measurements.times"
-        @end="$magpie.saveAndNextScreen()"
-      />
-    </Screen>
-
+      >
+        <template #stimulus>
+          <Record
+            :data="{
+              question: item['question'],
+              itemID: item['ID'],
+              correct_answer: item['correct_answer']
+            }"
+          />
+        </template>
+      </KeypressScreen>
+    </template>
     <DebugResultsScreen />
   </Experiment>
 </template>
 
 <script>
-// Load data from csv files as javascript arrays with objects
-import forced_choice from '../trials/forced_choice.csv';
-import multi_dropdown from '../trials/multi_dropdown.csv';
-import sentenceChoice from '../trials/sentence_choice.csv';
 import _ from 'lodash';
+import itemsNoFiller from '../trials/data_non_filler.json';
+import itemsFiller from '../trials/data_filler.json';
+import latinSquare from '../trials/presentation_lists.json';
+import SelfPacedReadingScreen from './SelfPacedReadingScreen';
 
 export default {
   name: 'App',
-  components: {},
+  components: { SelfPacedReadingScreen },
   data() {
     return {
-      forced_choice,
-      multi_dropdown,
-      sentenceChoice,
-      imageSelection: _.shuffle(imageSelection),
-      sliderRating,
-
       // Expose lodash.range to template above
-      range: _.range
+      range: _.range,
+      items: itemsNoFiller,
+      fillerItems: itemsFiller,
+      presentationLists: latinSquare
     };
+  },
+  computed: {
+    itemList() {
+      let nonFillerItemList = [];
+      const presentationList = _.sample(this.presentationLists);
+      const itemListRandomized = _.shuffle(this.items);
+
+      for (let i = 0; i < presentationList.length; i++) {
+        let item = itemListRandomized[i];
+        let presentationListItem = presentationList[i];
+        nonFillerItemList.push(
+          this.createNonFiller(item, presentationListItem)
+        );
+      }
+
+      for (let i = 0; i < this.fillerItems.length; i++) {
+        let item = this.fillerItems[i];
+        nonFillerItemList.push(this.createFiller(item));
+      }
+      nonFillerItemList = _.shuffle(nonFillerItemList);
+      return nonFillerItemList;
+    }
+  },
+  methods: {
+    createNonFiller(item, presentationListItem) {
+      let result = {
+        ID: item['ID'],
+        type: item['type'],
+        context_type: presentationListItem['context_type'],
+        context: item['context'][presentationListItem['context_type']],
+        trigger_type: presentationListItem['trigger_type'],
+        trigger: item['trigger'][presentationListItem['trigger_type']],
+        continuation_type: presentationListItem['continuation_type'],
+        continuation:
+          item['continuation'][presentationListItem['continuation_type']],
+        question: item['question'],
+        correct_answer: item['correct']
+      };
+      return result;
+    },
+    createFiller(item) {
+      let result = {
+        ID: item['ID'] + 'f',
+        type: item['type'],
+        context_type: 'filler',
+        context: item['context'],
+        trigger_type: 'filler',
+        trigger: item['trigger'],
+        continuation_type: 'filler',
+        continuation: item['continuation'],
+        question: item['question'],
+        correct_answer: item['correct']
+      };
+      return result;
+    }
   }
 };
-
-const imageSelection = [
-  {
-    QUD: 'image selection - loop: 1, trial: 1',
-    question: 'How are you today?',
-    option1: 'fine',
-    picture1: 'images/question_mark_02.png',
-    option2: 'great',
-    picture2: 'images/question_mark_01.png'
-  },
-  {
-    QUD: 'image selection - loop: 1, trial: 2',
-    option1: 'shiny',
-    picture1: 'images/question_mark_03.jpg',
-    option2: 'rainbow',
-    picture2: 'images/question_mark_04.png'
-  },
-  {
-    QUD: 'image selection - loop: 2, trial: 1',
-    question: 'How are you today?',
-    option1: 'fine',
-    picture1: 'images/question_mark_03.jpg',
-    option2: 'great',
-    picture2: 'images/question_mark_01.png'
-  },
-  {
-    QUD: 'image selection - loop: 2, trial: 2',
-    option1: 'shiny',
-    picture1: 'images/question_mark_02.png',
-    option2: 'rainbow',
-    picture2: 'images/question_mark_04.png'
-  }
-];
-
-const sliderRating = [
-  {
-    picture: 'images/question_mark_02.png',
-    question: 'How are you today?',
-    optionLeft: 'fine',
-    optionRight: 'great'
-  },
-  {
-    picture: 'images/question_mark_01.png',
-    question: "What's the weather like?",
-    optionLeft: 'shiny',
-    optionRight: 'rainbow'
-  },
-  {
-    QUD: 'Here is a sentence that stays on the screen from the very beginning',
-    picture: 'images/question_mark_03.jpg',
-    question: "What's on the bread?",
-    optionLeft: 'ham',
-    optionRight: 'jam'
-  }
-];
 </script>
