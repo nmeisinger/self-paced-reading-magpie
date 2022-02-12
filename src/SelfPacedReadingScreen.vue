@@ -19,7 +19,7 @@
       />
       <SelfPacedReading
         v-else
-        :chunks="item[element].split('|')"
+        :chunks="item[element].split(' ')"
         word-pos="next"
         underline="sentence"
         :response-times.sync="$magpie.measurements.times"

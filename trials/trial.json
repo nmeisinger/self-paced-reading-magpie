@@ -1,0 +1,13 @@
+[
+  {
+    "type": "filler-trial",
+    "ID": 1,
+    "context": "Yesterday, I went out to buy some bread.",
+    "context_length": 8,
+    "trigger": "On my way, I met my good friend Karl.",
+    "trigger_length": 9,
+    "continuation": "He told me, he hates bread.",
+    "question": "Does Karl like bread?",
+    "correct": "no"
+  }
+]

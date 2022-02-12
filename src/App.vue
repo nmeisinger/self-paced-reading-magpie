@@ -1,5 +1,43 @@
 <template>
   <Experiment title="magpie demo">
+    <InstructionScreen>
+      <p>Welcome to this experiment!</p>
+      <p>
+        The following experiment is a self-paced reading task. You will read a
+        variety of different passages word-by-word. After each passage, you will
+        need to answer a simple yes/no comprehension question.
+      </p>
+      <p>Please try to read each sentence as fast and accurate as possible.</p>
+      <p>
+        Once you click on the button below, a trial will start, so you can get
+        accustomed to the flow of the experiment.
+      </p>
+    </InstructionScreen>
+
+    <SelfPacedReadingScreen :item="itemListTrial[0]" />
+    <KeypressScreen
+      :question="itemListTrial[0]['question']"
+      :keys="{
+        f: 'yes',
+        j: 'no'
+      }"
+    >
+      <template #stimulus>
+        <Record
+          :data="{
+            question: itemListTrial[0]['question'],
+            itemID: itemListTrial[0]['ID'] + 'trial',
+            correct_answer: itemListTrial[0]['correct_answer']
+          }"
+        />
+      </template>
+    </KeypressScreen>
+
+    <InstructionScreen>
+      <p>You completed the trial.</p>
+      <p>Once you press the button below, the real experiment will begin.</p>
+    </InstructionScreen>
+
     <template v-for="item in itemList">
       <SelfPacedReadingScreen :item="item" />
       <KeypressScreen
@@ -28,6 +66,7 @@
 import _ from 'lodash';
 import itemsNoFiller from '../trials/data_non_filler.json';
 import itemsFiller from '../trials/data_filler.json';
+import itemsFillerTrial from '../trials/trial.json';
 import latinSquare from '../trials/presentation_lists.json';
 import SelfPacedReadingScreen from './SelfPacedReadingScreen';
 
@@ -40,6 +79,7 @@ export default {
       range: _.range,
       items: itemsNoFiller,
       fillerItems: itemsFiller,
+      fillerItemsTrial: itemsFillerTrial,
       presentationLists: latinSquare
     };
   },
@@ -63,6 +103,14 @@ export default {
       }
       nonFillerItemList = _.shuffle(nonFillerItemList);
       return nonFillerItemList;
+    },
+    itemListTrial() {
+      let itemList = [];
+      for (let i = 0; i < this.fillerItemsTrial.length; i++) {
+        let item = this.fillerItemsTrial[i];
+        itemList.push(this.createFiller(item));
+      }
+      return itemList;
     }
   },
   methods: {
