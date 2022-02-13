@@ -1,5 +1,5 @@
 <template>
-  <Experiment title="magpie demo">
+  <Experiment title="Self-paced Reading Experiment">
     <InstructionScreen>
       <p>Welcome to this experiment!</p>
       <p>
@@ -8,6 +8,14 @@
         need to answer a simple yes/no comprehension question.
       </p>
       <p>Please try to read each sentence as fast and accurate as possible.</p>
+    </InstructionScreen>
+
+    <InstructionScreen>
+      <p>
+        Place your left index finger on the 'f' key, the right index finger on
+        the 'g' key. Place one or both of your thumbs on the spacebar.
+      </p>
+
       <p>
         Once you click on the button below, a trial will start, so you can get
         accustomed to the flow of the experiment.
