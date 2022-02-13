@@ -13,7 +13,7 @@
     <InstructionScreen>
       <p>
         Place your left index finger on the 'f' key, the right index finger on
-        the 'g' key. Place one or both of your thumbs on the spacebar.
+        the 'j' key. Place one or both of your thumbs on the spacebar.
       </p>
 
       <p>
