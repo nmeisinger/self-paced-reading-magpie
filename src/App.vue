@@ -26,8 +26,8 @@
     <KeypressScreen
       :question="itemListTrial[0]['question']"
       :keys="{
-        f: 'yes',
-        j: 'no'
+        f: 'no',
+        j: 'yes'
       }"
     >
       <template #stimulus>
@@ -51,8 +51,8 @@
       <KeypressScreen
         :question="item['question']"
         :keys="{
-          f: 'yes',
-          j: 'no'
+          f: 'no',
+          j: 'yes'
         }"
       >
         <template #stimulus>
