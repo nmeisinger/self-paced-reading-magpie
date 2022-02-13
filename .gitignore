@@ -1,2 +1,5 @@
 node_modules
 .idea
+dist
+trials/data_filler.json.bak
+trials/data_non_filler.json.bak
