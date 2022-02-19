@@ -2,17 +2,27 @@
   <Experiment title="Self-paced Reading Experiment">
     <InstructionScreen>
       <p>Hello and welcome to this experiment!</p>
-      <p>This study is concerned with how humans read und interpret language.</br>
-      For this, you will be presented with a variety of sentences for which you will have to answer comprehension questions.</p>
+      <p>
+        This study is concerned with how humans read und interpret language.<br />
+        For this, you will be presented with a variety of sentences for which
+        you will have to answer comprehension questions.
+      </p>
       <p>The estimated duration is 15-25 minutes.</p>
-      <p>Personal data will not be recorded and participation in this experiment is voluntary. At the end, you will another opportunity to decide,
-        whether you answers should be saved or not.</p>
-      <p>If you agree with these terms, press the button below to receive further instructions about the experiment.</p>
+      <p>
+        Personal data will not be recorded and participation in this experiment
+        is voluntary. At the end, you will another opportunity to decide,
+        whether you answers should be saved or not.
+      </p>
+      <p>
+        If you agree with these terms, press the button below to receive further
+        instructions about the experiment.
+      </p>
     </InstructionScreen>
 
     <InstructionScreen>
       <p>
-        You will be presented with passages of 2-3 sentences. After each passage you will need to answer a comprehension question.
+        You will be presented with passages of 2-3 sentences. After each passage
+        you will need to answer a comprehension question.
       </p>
 
       <p>
@@ -58,7 +68,10 @@
           index == ~~((itemList.length * 2) / 3)
         "
       >
-        <p>Please feel free to take a short break before continuing with this experiment.</p>
+        <p>
+          Please feel free to take a short break before continuing with this
+          experiment.
+        </p>
       </InstructionScreen>
 
       <SelfPacedReadingScreen
@@ -77,7 +90,7 @@
             :data="{
               question: item['question'],
               itemID: item['ID'],
-              correct_answer: item['correct_answer']
+              correct_answer: item['correct_answer'],
             }"
           />
         </template>
