@@ -1,21 +1,26 @@
 <template>
   <Experiment title="Self-paced Reading Experiment">
     <InstructionScreen>
-      <p>Welcome to this experiment!</p>
-      <p>
-        The following experiment is a self-paced reading task. You will read a
-        variety of different passages word-by-word. After each passage, you will
-        need to answer a simple yes/no comprehension question.
-      </p>
-      <p>Please try to read each sentence as fast and accurate as possible.</p>
+      <p>Hello and welcome to this experiment!</p>
+      <p>This study is concerned with how humans read und interpret language.</br>
+      For this, you will be presented with a variety of sentences for which you will have to answer comprehension questions.</p>
+      <p>The estimated duration is 15-25 minutes.</p>
+      <p>Personal data will not be recorded and participation in this experiment is voluntary. At the end, you will another opportunity to decide,
+        whether you answers should be saved or not.</p>
+      <p>If you agree with these terms, press the button below to receive further instructions about the experiment.</p>
     </InstructionScreen>
 
     <InstructionScreen>
+      <p>
+        You will be presented with passages of 2-3 sentences. After each passage you will need to answer a comprehension question.
+      </p>
+
       <p>
         Place your left index finger on the 'f' key, the right index finger on
         the 'j' key. Place one or both of your thumbs on the spacebar.
       </p>
 
+      <p>Try to read each sentence as fast and accurate possible.</p>
       <p>
         Once you click on the button below, a trial will start, so you can get
         accustomed to the flow of the experiment.
@@ -46,8 +51,20 @@
       <p>Once you press the button below, the real experiment will begin.</p>
     </InstructionScreen>
 
-    <template v-for="item in itemList">
-      <SelfPacedReadingScreen :item="item" />
+    <template v-for="(item, index) in itemList">
+      <InstructionScreen
+        v-if="
+          index == ~~(itemList.length / 3) ||
+          index == ~~((itemList.length * 2) / 3)
+        "
+      >
+        <p>Please feel free to take a short break before continuing with this experiment.</p>
+      </InstructionScreen>
+
+      <SelfPacedReadingScreen
+        :item="item"
+        :progress="index / itemList.length"
+      />
       <KeypressScreen
         :question="item['question']"
         :keys="{
@@ -66,6 +83,11 @@
         </template>
       </KeypressScreen>
     </template>
+
+    <InstructionScreen>
+      <p>Thanks for completing this experiment!</p>
+      <p>Once you press the button below, your data will be submitted.</p>
+    </InstructionScreen>
     <DebugResultsScreen />
   </Experiment>
 </template>
@@ -94,7 +116,10 @@ export default {
   computed: {
     itemList() {
       let nonFillerItemList = [];
-      const presentationList = _.sample(this.presentationLists);
+      const presentationList = [].concat.apply(
+        [],
+        _.sampleSize(this.presentationLists, 4)
+      );
       const itemListRandomized = _.shuffle(this.items);
 
       for (let i = 0; i < presentationList.length; i++) {
