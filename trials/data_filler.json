@@ -4,8 +4,8 @@
       "ID": 1,
       "context": "I drove to the mall yesterday.",
       "context_length": 6,
-      "trigger": "I stayed in the Apple store for one hour while looking at a new iMac before stopping at JC Penny's on the way home.",
-      "trigger_length": 24,
+      "trigger": "I stayed in the Apple store for one hour while looking at a new iMac.",
+      "trigger_length": 14,
       "continuation": "",
       "question": "Did the Apple store have a recently released computer?",
       "correct": "yes"
@@ -217,138 +217,6 @@
       "trigger_length": 9,
       "continuation": "I can't stand it when they make TV shows out of movies.",
       "question": "Have I seen the Star Wars TV show? ",
-      "correct": "no"
-   },
-   {
-      "type": "filler",
-      "ID": 21,
-      "context": "Neil Patrick Harris is my favorite actor.",
-      "context_length": 7,
-      "trigger": "Harris stars in my favorite TV show.",
-      "trigger_length": 7,
-      "continuation": "I wish I could meet him.",
-      "question": "Have I acted with Neil Patrick Harris? ",
-      "correct": "no"
-   },
-   {
-      "type": "filler",
-      "ID": 22,
-      "context": "I can't stand fruit-flavored candy.",
-      "context_length": 5,
-      "trigger": "I make exceptions for lemon lollipops and chewy candy, though.",
-      "trigger_length": 10,
-      "continuation": "",
-      "question": "Do I like cherry gumdrops? ",
-      "correct": "no"
-   },
-   {
-      "type": "filler",
-      "ID": 23,
-      "context": "There was a thunderstorm today.",
-      "context_length": 5,
-      "trigger": "I think that thunderstorms are romantic.",
-      "trigger_length": 6,
-      "continuation": "My professor became annoyed because he could not speak over the thunder. ",
-      "question": "Was I in class during the thunderstorm? ",
-      "correct": "yes"
-   },
-   {
-      "type": "filler",
-      "ID": 24,
-      "context": "I love to play card games with my friends, and we are going to play Hearts tonight.",
-      "context_length": 17,
-      "trigger": "We always enjoy playing a game on Sunday evening.",
-      "trigger_length": 9,
-      "continuation": "",
-      "question": "Is tonight Sunday?",
-      "correct": "yes"
-   },
-   {
-      "type": "filler",
-      "ID": 25,
-      "context": "Yesterday, my cat scratched my arm.",
-      "context_length": 6,
-      "trigger": "She is normally quite friendly.",
-      "trigger_length": 5,
-      "continuation": "I have had her for the last three years.",
-      "question": "Was I surprised that the cat scratched my arm? ",
-      "correct": "yes"
-   },
-   {
-      "type": "filler",
-      "ID": 26,
-      "context": "This summer I will not have air conditioning in my house.",
-      "context_length": 11,
-      "trigger": "I prefer the weather in Massachusetts, where it is colder.",
-      "trigger_length": 10,
-      "continuation": "New England weather is always colder in the summer.",
-      "question": "Do I prefer New England weather?",
-      "correct": "yes"
-   },
-   {
-      "type": "filler",
-      "ID": 27,
-      "context": "I use Post - It Notes to keep track of my homework.",
-      "context_length": 11,
-      "trigger": "Sometimes I lose them, but the adhesive helps them stick to my notes.",
-      "trigger_length": 13,
-      "continuation": "",
-      "question": "Do I write my assignments in a notebook?",
-      "correct": "no"
-   },
-   {
-      "type": "filler",
-      "ID": 28,
-      "context": "My headphones broke yesterday.",
-      "context_length": 4,
-      "trigger": "I will have to buy new ones from the store when it opens tomorrow.",
-      "trigger_length": 14,
-      "continuation": "I wish stores were open on the weekend.",
-      "question": "Do I have another pair of headphones?",
-      "correct": "no"
-   },
-   {
-      "type": "filler",
-      "ID": 29,
-      "context": "Over the weekend I saw a play.",
-      "context_length": 7,
-      "trigger": "The student theatre group put it on.",
-      "trigger_length": 7,
-      "continuation": "If the actors could sing it would sound nicer.",
-      "question": "Is the play a musical?",
-      "correct": "yes"
-   },
-   {
-      "type": "filler",
-      "ID": 30,
-      "context": "Each weekend I do my laundry.",
-      "context_length": 6,
-      "trigger": "I have sports practice each week. ",
-      "trigger_length": 6,
-      "continuation": "",
-      "question": "Do I wash my sports clothes each week? ",
-      "correct": "yes"
-   },
-   {
-      "type": "filler",
-      "ID": 31,
-      "context": "I have seen a mouse living in my apartment.",
-      "context_length": 9,
-      "trigger": "Yesterday, it ate a bar of chocolate, even though the candy was in a closed plastic container.",
-      "trigger_length": 17,
-      "continuation": "",
-      "question": "Did the mouse find a way into the plastic container? ",
-      "correct": "yes"
-   },
-   {
-      "type": "filler",
-      "ID": 32,
-      "context": "Last summer I went to Chicago on vacation.",
-      "context_length": 8,
-      "trigger": "When I was there, I visited the Art Institute and saw a painting by Georges Seurat.",
-      "trigger_length": 16,
-      "continuation": "It was much bigger than I thought it would be.",
-      "question": "Did the painting conform to my expectations?",
       "correct": "no"
    }
 ]
