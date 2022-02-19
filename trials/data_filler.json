@@ -37,7 +37,7 @@
       "ID": 4,
       "context": "I read fantasy novels every week.",
       "context_length": 6,
-      "trigger": "I enjoy Terry Pratchett's novels especially.",
+      "trigger": "Among my favorites are Terry Pratchett's novels.",
       "trigger_length": 6,
       "continuation": "His stories are funny and sarcastic.",
       "question": "Does Terry Pratchett write fantasy books? ",
@@ -46,7 +46,7 @@
    {
       "type": "filler",
       "ID": 5,
-      "context": "Each week I write at least one response paper.",
+      "context": "Each week I write normally one response paper.",
       "context_length": 9,
       "trigger": "This week I wrote two.",
       "trigger_length": 5,
@@ -128,7 +128,7 @@
       "trigger": "Everyone knows that flossing prevents cavities, but I haven't flossed enough.",
       "trigger_length": 11,
       "continuation": "I will try to brush my teeth more frequently.",
-      "question": "Does everyone know that brushing teeth prevents cavities? ",
+      "question": "Did I floss enough? ",
       "correct": "no"
    },
    {
@@ -161,7 +161,7 @@
       "trigger": "I prefer to use an Apple Mac as my laptop.",
       "trigger_length": 10,
       "continuation": "Most computers on the campus are from Apple.",
-      "question": "Is it easier to use Mac on campus? ",
+      "question": "Is it easier to use Apple computers on campus? ",
       "correct": "yes"
    },
    {
@@ -193,7 +193,7 @@
       "context_length": 7,
       "trigger": "I am also interested in a minor in Theatre.",
       "trigger_length": 9,
-      "continuation": "I cannot do more than one major and minor or two majors.",
+      "continuation": "I cannot do more than one major and minor.",
       "question": "Am I also majoring in Philosophy? ",
       "correct": "no"
    },
