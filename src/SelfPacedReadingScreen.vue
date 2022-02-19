@@ -1,5 +1,5 @@
 <template>
-  <Screen>
+  <Screen :progress="progress">
     <Slide v-for="element in presentationOrder">
       <SelfPacedReading
         v-if="!checkEndScreen(element)"
@@ -12,6 +12,8 @@
             itemID: item['ID'],
             type: element,
             setting: item[element + '_type'],
+            phrase: item[element],
+            phrase_length: item[element].split(' ').length,
             times: $magpie.measurements.times
           });
           $magpie.nextSlide();
@@ -29,7 +31,9 @@
         :data="{
           itemID: item['ID'],
           type: element,
-          setting: item[element + '_type']
+          setting: item[element + '_type'],
+          phrase: item[element],
+          phrase_length: item[element].split(' ').length
         }"
       />
     </Slide>
@@ -39,12 +43,7 @@
 <script>
 export default {
   name: 'SelfPacedReadingScreen',
-  props: {
-    item: {
-      type: Object,
-      required: true
-    }
-  },
+  props: ['item', 'progress'],
   computed: {
     presentationOrder() {
       if (this.item['continuation'].length == 0) return ['context', 'trigger'];
