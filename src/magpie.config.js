@@ -1,5 +1,5 @@
 export default {
-  experimentId: '293',
+  experimentId: '301',
   serverUrl: 'https://magpie-demo.herokuapp.com/',
   // this will be used in prolific mode
   completionUrl: 'https://...',

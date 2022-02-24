@@ -101,7 +101,7 @@
       <p>Thanks for completing this experiment!</p>
       <p>Once you press the button below, your data will be submitted.</p>
     </InstructionScreen>
-    <DebugResultsScreen />
+    <SubmitResultsScreen />
   </Experiment>
 </template>
 
