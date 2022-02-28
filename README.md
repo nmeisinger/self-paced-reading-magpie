@@ -1,6 +1,6 @@
-# selfpaced-reading
+# Selfpaced-Reading Experiment in Magpie 3
 
-This is a sample experiment using magpie.
+## Setup
 
 First, set up the project with `npm install`
 
@@ -8,9 +8,12 @@ To run the project locally, run `npm run serve`
 
 To build the project for deployment (e.g. to Netlify), run `npm run build`
 
-If you are hosting this repository on github, the project will automatically be built and deployed to the gh-pages branch, so you only have to enable Github Pages in your repository settings to publish your project.
+## Description
 
-For more information, see the [manual](https://magpie-mnual.netlify.app/).
+This repository contains a replication of the self-paced reading experiment laid out in [Bergen & Grodner (2012)](https://scholar.archive.org/work/2uynysivdfeutgmxy5tdpetne4/access/wayback/http://web.mit.edu/bergen/www/papers/BergenGrodner%202012.pdf) using the [Magpie Framework](https://magpie-manual.netlify.app/).
 
-To automatically fix coding style and format the code (linting) run `npm run lint` and `npm run lint:style`
+A hosted version of this repository can be found at: https://keen-mahavira-61eb1c.netlify.app/
 
+## Structure
+
+`trials/`: Contains the stimuli used in the experiment.

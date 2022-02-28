@@ -90,7 +90,7 @@
             :data="{
               question: item['question'],
               itemID: item['ID'],
-              correct_answer: item['correct_answer'],
+              correct_answer: item['correct_answer']
             }"
           />
         </template>
@@ -128,27 +128,29 @@ export default {
   },
   computed: {
     itemList() {
-      let nonFillerItemList = [];
+      let finalItemList = [];
       const presentationList = [].concat.apply(
         [],
         _.sampleSize(this.presentationLists, 4)
       );
       const itemListRandomized = _.shuffle(this.items);
 
+      // add non-filler to finalItemList, according to selected presentation
+      // lists
       for (let i = 0; i < presentationList.length; i++) {
         let item = itemListRandomized[i];
         let presentationListItem = presentationList[i];
-        nonFillerItemList.push(
-          this.createNonFiller(item, presentationListItem)
-        );
+        finalItemList.push(this.createNonFiller(item, presentationListItem));
       }
 
+      // add filler items to finalItemList
       for (let i = 0; i < this.fillerItems.length; i++) {
         let item = this.fillerItems[i];
-        nonFillerItemList.push(this.createFiller(item));
+        finalItemList.push(this.createFiller(item));
       }
-      nonFillerItemList = _.shuffle(nonFillerItemList);
-      return nonFillerItemList;
+      // randomize order
+      finalItemList = _.shuffle(finalItemList);
+      return finalItemList;
     },
     itemListTrial() {
       let itemList = [];
@@ -160,6 +162,7 @@ export default {
     }
   },
   methods: {
+    // create non-filler objects
     createNonFiller(item, presentationListItem) {
       let result = {
         ID: item['ID'],
@@ -176,6 +179,7 @@ export default {
       };
       return result;
     },
+    // create filler objects
     createFiller(item) {
       let result = {
         ID: item['ID'] + 'f',

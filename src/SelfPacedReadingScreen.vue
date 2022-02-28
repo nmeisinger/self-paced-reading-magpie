@@ -1,3 +1,4 @@
+<!-- Custom Screen implementing the SelfPacedReading stimuli. Shows all sentences of a passage -->
 <template>
   <Screen :progress="progress">
     <Slide v-for="element in presentationOrder">
@@ -45,12 +46,14 @@ export default {
   name: 'SelfPacedReadingScreen',
   props: ['item', 'progress'],
   computed: {
+    // Sets the presentation order, some filler don't have a continuation
     presentationOrder() {
       if (this.item['continuation'].length == 0) return ['context', 'trigger'];
       else return ['context', 'trigger', 'continuation'];
     }
   },
   methods: {
+    // Checks, whether the Screen should end or move to the next Slide
     checkEndScreen(i) {
       if (i === 'trigger' && this.item['continuation'].length == 0) return true;
       else if (i === 'continuation') return true;
